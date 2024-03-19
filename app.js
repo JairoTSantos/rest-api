@@ -12,6 +12,9 @@ app.use((err, req, res, next) => {
     next();
 });
 
+const orgaosRoute = require('./routes/orgaosRoute');
+app.use('/', orgaosRoute);
+
 app.get('/api', (req, res) => {
     res.status(200).json({status: 200, message: 'Api em funcionamento, Consulte a documentação em /api-docs'});
 });
@@ -27,6 +30,8 @@ const verificarToken = require('./middleware/authMiddleware');
 
 const usuariosRoute = require('./routes/usuariosRoute');
 app.use('/', verificarToken, usuariosRoute);
+
+
 
 app.use((req, res, next) => {
     res.status(404).json({ status: 404, message: 'ENDPOINT não encontrado' });

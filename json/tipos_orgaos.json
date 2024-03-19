@@ -1,0 +1,157 @@
+[
+    {
+        "orgao_tipo_id": 0,
+        "orgao_tipo": "Sem tipo",
+        "orgao_descricao": "Sem um tipo definido"
+    },
+    {
+        "orgao_tipo_id": 1,
+        "orgao_tipo": "Agências Reguladoras",
+        "orgao_descricao": "Órgãos responsáveis por regular e fiscalizar o setor de telecomunicações no país."
+    },
+    {
+        "orgao_tipo_id": 2,
+        "orgao_tipo": "Assembleias Legislativas",
+        "orgao_descricao": "Órgãos legislativos estaduais responsáveis por elaborar leis no âmbito estadual."
+    },
+    {
+        "orgao_tipo_id": 3,
+        "orgao_tipo": "Associações de Classe",
+        "orgao_descricao": "Organizações que representam profissionais de uma área específica, defendendo seus interesses e promovendo o desenvolvimento da profissão."
+    },
+    {
+        "orgao_tipo_id": 4,
+        "orgao_tipo": "Associações de Moradores",
+        "orgao_descricao": "Entidades comunitárias formadas por moradores de uma determinada região, responsáveis por representar os interesses da comunidade e buscar melhorias locais."
+    },
+    {
+        "orgao_tipo_id": 5,
+        "orgao_tipo": "Câmaras de Agronegócio",
+        "orgao_descricao": "Organizações que representam os interesses do setor agropecuário, promovendo o desenvolvimento, a competitividade e a sustentabilidade do agronegócio."
+    },
+    {
+        "orgao_tipo_id": 6,
+        "orgao_tipo": "Câmaras de Comércio",
+        "orgao_descricao": "Organizações que representam e promovem os interesses comerciais de uma determinada região ou setor econômico, buscando o desenvolvimento e a integração empresarial."
+    },
+    {
+        "orgao_tipo_id": 7,
+        "orgao_tipo": "Câmaras de Vereadores",
+        "orgao_descricao": "Órgãos legislativos municipais responsáveis por representar os interesses da população e elaborar leis no âmbito municipal."
+    },
+    {
+        "orgao_tipo_id": 8,
+        "orgao_tipo": "Câmara dos Deputados",
+        "orgao_descricao": "Órgão legislativo federal responsáveis por representar os interesses da população e elaborar leis no âmbito federal."
+    },
+    {
+        "orgao_tipo_id": 9,
+        "orgao_tipo": "Consultorias",
+        "orgao_descricao": "Empresas especializadas em oferecer serviços de consultoria em diversas áreas, auxiliando outras empresas na tomada de decisões estratégicas e operacionais."
+    },
+    {
+        "orgao_tipo_id": 10,
+        "orgao_tipo": "Defensorias Públicas",
+        "orgao_descricao": "Órgãos responsáveis por prestar assistência jurídica gratuita àqueles que não possuem condições de arcar com os custos de um advogado."
+    },
+    {
+        "orgao_tipo_id": 11,
+        "orgao_tipo": "Empresas de Educação",
+        "orgao_descricao": "Empresas que oferecem serviços educacionais, como escolas, cursos, treinamentos e plataformas de ensino online, contribuindo para a formação e o desenvolvimento pessoal e profissional."
+    },
+    {
+        "orgao_tipo_id": 12,
+        "orgao_tipo": "Empresas de Manufatura",
+        "orgao_descricao": "Empresas que produzem bens tangíveis por meio de processos industriais, envolvendo a transformação de matérias-primas em produtos acabados."
+    },
+    {
+        "orgao_tipo_id": 13,
+        "orgao_tipo": "Empresas de Saúde",
+        "orgao_descricao": "Empresas dedicadas à prestação de serviços de saúde, como hospitais, clínicas médicas, laboratórios, entre outros, visando promover o bem-estar e a qualidade de vida."
+    },
+    {
+        "orgao_tipo_id": 14,
+        "orgao_tipo": "Empresas de Tecnologia",
+        "orgao_descricao": "Empresas dedicadas ao desenvolvimento, produção e comercialização de produtos e serviços relacionados à tecnologia da informação e comunicação."
+    },
+    {
+        "orgao_tipo_id": 15,
+        "orgao_tipo": "Empresas de Varejo",
+        "orgao_descricao": "Empresas que comercializam produtos diretamente ao consumidor final, por meio de lojas físicas, virtuais ou outros canais de venda, atendendo às necessidades e preferências do público."
+    },
+    {
+        "orgao_tipo_id": 16,
+        "orgao_tipo": "Escritórios de Advocacia",
+        "orgao_descricao": "Empresas de prestação de serviços jurídicos, representando clientes em questões legais e judiciais, além de oferecerem consultoria jurídica."
+    },
+    {
+        "orgao_tipo_id": 17,
+        "orgao_tipo": "Federações Empresariais",
+        "orgao_descricao": "Entidades que reúnem diversas empresas de um mesmo setor ou região, com o objetivo de defender interesses comuns, promover a cooperação e representar o setor perante autoridades e outras organizações."
+    },
+    {
+        "orgao_tipo_id": 18,
+        "orgao_tipo": "Forças de Segurança",
+        "orgao_descricao": "Órgãos responsáveis por realizar investigações de crimes, combater a criminalidade e manter a segurança pública."
+    },
+    {
+        "orgao_tipo_id": 19,
+        "orgao_tipo": "Governo",
+        "orgao_descricao": "Os órgãos responsáveis pela administração e governança do país ou estado."
+    },
+    {
+        "orgao_tipo_id": 20,
+        "orgao_tipo": "Instituições de Ensino",
+        "orgao_descricao": "Entidades educacionais, como escolas, universidades e institutos de pesquisa, dedicadas ao ensino, pesquisa e extensão, contribuindo para o desenvolvimento intelectual e social."
+    },
+    {
+        "orgao_tipo_id": 21,
+        "orgao_tipo": "Institutos Nacionais do Seguro Social (INSS)",
+        "orgao_descricao": "Órgãos responsáveis pela concessão e administração de benefícios previdenciários, como aposentadorias e auxílios."
+    },
+    {
+        "orgao_tipo_id": 22,
+        "orgao_tipo": "Ministérios",
+        "orgao_descricao": "Órgãos responsáveis por coordenar e executar políticas em uma área específica do governo central."
+    },
+    {
+        "orgao_tipo_id": 23,
+        "orgao_tipo": "Ministérios Públicos",
+        "orgao_descricao": "Órgãos responsáveis pela defesa da ordem jurídica, do regime democrático e dos interesses sociais e individuais indisponíveis."
+    },
+    {
+        "orgao_tipo_id": 24,
+        "orgao_tipo": "ONG's",
+        "orgao_descricao": "Organizações não governamentais sem fins lucrativos, dedicadas a causas sociais, ambientais, culturais ou outras, atuando na promoção do bem-estar e na defesa de direitos."
+    },
+    {
+        "orgao_tipo_id": 25,
+        "orgao_tipo": "Prefeituras",
+        "orgao_descricao": "As órgãos responsáveis pela administração municipal em uma cidade."
+    },
+    {
+        "orgao_tipo_id": 26,
+        "orgao_tipo": "Secretarias",
+        "orgao_descricao": "Órgãos responsáveis por auxiliar o chefe do executivo na gestão e execução de políticas públicas em uma área específica."
+    },
+    {
+        "orgao_tipo_id": 27,
+        "orgao_tipo": "Senado Federal",
+        "orgao_descricao": "Órgão legislativo federal responsáveis por representar os interesses dos estados e elaborar leis no âmbito federal."
+    },
+    {
+        "orgao_tipo_id": 28,
+        "orgao_tipo": "Sindicatos",
+        "orgao_descricao": "Organizações representativas dos interesses de uma categoria profissional, responsáveis por defender os direitos trabalhistas e negociar condições de trabalho."
+    },
+    {
+        "orgao_tipo_id": 29,
+        "orgao_tipo": "Startups",
+        "orgao_descricao": "Empresas emergentes com propostas inovadoras e escaláveis, geralmente no setor de tecnologia, buscando solucionar problemas e criar novas oportunidades de negócio."
+    },
+    {
+        "orgao_tipo_id": 30,
+        "orgao_tipo": "Tribunais de Contas",
+        "orgao_descricao": "Órgãos responsáveis por fiscalizar as contas e a legalidade dos atos do poder executivo."
+    }
+]

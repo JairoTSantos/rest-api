@@ -13,7 +13,7 @@ async function login(email, senha) {
 
             const token = jwt.sign(payload, process.env.MASTER_KEY, { expiresIn: process.env.TOKEN_TIME });
 
-            return { status: 200, message: 'Login feito com sucesso (usuário mestre)', token: token };
+            return { status: 200, message: 'Login feito com sucesso', token: token };
         }
 
         const usuario = await usuariosModel.Usuario.findOne({ where: { usuario_email: email } });

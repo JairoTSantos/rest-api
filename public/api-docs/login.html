@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentação da Rota /api/login</title>
+  <!-- Adicione o link para o arquivo CSS do Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-size: 0.8em;
+    }
+
+    pre{
+      background-color: lightgray;
+      margin: 0px;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .endpoint {
+      margin-top: 30px;
+    }
+    .endpoint h2 {
+      font-size: 1.2em;
+      color: #007bff;
+    }
+    .endpoint p {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <h1 class="text-center mb-5">Documentação da Rota /api/login</h1>
+    <div class="card">
+      <div class="card-body p-2">
+        <a href="/api-docs" class="btn btn-primary btn-sm">Voltar</a>
+      </div>
+    </div>
+    <div class="endpoint">
+      <h2>POST /api/login</h2>
+      <p>Esta rota permite que os usuários façam login no sistema.</p>
+      <p>Para fazer login, você deve enviar uma solicitação POST com um corpo contendo as seguintes informações:</p>
+      <ul>
+        <li><strong>email</strong>: O endereço de e-mail do usuário.</li>
+        <li><strong>senha</strong>: A senha do usuário.</li>
+      </ul>
+      <p>Exemplo de corpo da solicitação:</p>
+      <pre>
+        <code>
+          {
+            "email": "exemplo@email.com",
+            "senha": "senha123"
+          }
+        </code>
+      </pre>
+      <p>A rota retorna um objeto JSON com as seguintes informações:</p>
+      <ul>
+        <li><strong>status</strong>: O código de status da resposta.</li>
+        <li><strong>message</strong>: Uma mensagem descrevendo o resultado da solicitação.</li>
+        <li><strong>token</strong>: O token de acesso JWT, se o login for bem-sucedido.</li>
+      </ul>
+      
+      <p>Exemplo de resposta para um login bem-sucedido:</p>
+      <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "Login feito com sucesso",
+            "token": "TOKEN_JWT"
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para um login mal-sucedido (email incorreto):</p>
+      <pre>
+        <code>
+          {
+            "status": 404,
+            "message": "Email incorreto"
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para um login mal-sucedido (senha incorreta):</p>
+      <pre>
+        <code>
+          {
+            "status": 401,
+            "message": "Senha incorreta"
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+        <code>
+          {
+            "status": 500,
+            "message": "Erro interno do servidor",
+            "error": "MENSAGEM_DE_ERRO"
+          }
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Adicione o link para o arquivo JavaScript do Bootstrap (opcional, dependendo dos componentes que você estiver utilizando) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

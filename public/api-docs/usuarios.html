@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentação das Rotas de Usuários</title>
+  <!-- Adicione o link para o arquivo CSS do Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-size: 0.8em;
+    }
+    pre{
+      background-color: lightgray;
+      margin: 0px;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .endpoint {
+      margin-top: 30px;
+    }
+
+    .endpoint h2 {
+      font-size: 1.2em;
+      color: #007bff;
+    }
+
+    .endpoint p {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1 class="text-center mb-5">Documentação das Rotas de Usuários</h1>
+    <div class="card">
+      <div class="card-body p-2">
+        <a href="/api-docs" class="btn btn-primary btn-sm">Voltar</a>
+      </div>
+    </div>
+    <div class="endpoint">
+      <h2>GET /api/usuarios</h2>
+      <p>Esta rota retorna uma lista paginada de usuários.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Para obter o token JWT, consulte <a href=login.html>/api/login.</a></p>
+      <p>Parâmetros de consulta:</p>
+      <ul>
+        <li><strong>itens</strong>: O número de itens por página.</li>
+        <li><strong>pagina</strong>: O número da página a ser retornada.</li>
+      </ul>
+      <p>Exemplo de resposta:</p>
+      <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "1 usuários encontrados",
+            "data": [
+              {
+                "usuario_id": "453d9f00-b421-4b4a-b995-2bee9a61f0e4",
+                "usuario_nome": "João Silva",
+                "usuario_email": "joao.silva@example.com",
+                "usuario_aniversario": "1990-05-15",
+                "usuario_telefone": "123456789",
+                "usuario_ativo": true,
+                "usuario_nivel": 1,
+                "usuario_criado_em": "2024-03-19T17:52:26.000Z",
+                "usuario_atualizado_em": "2024-03-19T17:52:26.000Z"
+              }
+            ],
+            "links": {
+              "first": "/api/usuarios?itens=10&pagina=1",
+              "self": "/api/usuarios?itens=10&pagina=2",
+              "last": "/api/usuarios?itens=10&pagina=3"
+            }
+          }
+        </code>
+      </pre>
+
+    </div>
+
+    <div class="endpoint">
+      <h2>GET /api/usuarios/{id}</h2>
+      <p>Esta rota retorna um usuário específico pelo seu ID.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Para obter o token JWT, consulte <a href=login.html>/api/login.</a></p>
+      <p>Parâmetros de consulta:</p>
+      <ul>
+        <li><strong>id</strong>: O ID do usuário.</li>
+      </ul>
+      <p>Exemplo de resposta para um usuário encontrado:</p>
+      <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "Usuário encontrado",
+            "data": [
+            {
+              "usuario_id": "453d9f00-b421-4b4a-b995-2bee9a61f0e4",
+              "usuario_nome": "João Silva",
+              "usuario_email": "joao.silva@example.com",
+              "usuario_aniversario": "1990-05-15",
+              "usuario_telefone": "123456789",
+              "usuario_ativo": true,
+              "usuario_nivel": 1,
+              "usuario_criado_em": "2024-03-19T17:52:26.000Z",
+              "usuario_atualizado_em": "2024-03-19T17:52:26.000Z"
+            }
+          ],
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para um usuário não encontrado:</p>
+      <pre>
+        <code>
+          {
+            "status": 404,
+            "message": "Usuário não encontrado"
+          }
+        </code>
+      </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>DELETE /api/usuarios/{id}</h2>
+      <p>Esta rota exclui um usuário específico pelo seu ID.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Para obter o token JWT, consulte <a href=login.html>/api/login.</a></p>
+      <p>Parâmetros de consulta:</p>
+      <ul>
+        <li><strong>id</strong>: O ID do usuário a ser excluído.</li>
+      </ul>
+      <p>Exemplo de resposta para um usuário excluído com sucesso:</p>
+      <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "Usuário excluído com sucesso"
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para um usuário não encontrado:</p>
+      <pre>
+        <code>
+          {
+            "status": 404,
+            "message": "Usuário não encontrado"
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+        <code>
+          {
+            "status": 500,
+            "message": "Erro interno do servidor",
+            "error": "MENSAGEM_DE_ERRO"
+          }
+        </code>
+      </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>POST /api/usuarios</h2>
+      <p>Esta rota adiciona um novo usuário.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Para obter o token JWT, consulte <a href=login.html>/api/login.</a></p>
+      <p>Corpo da solicitação:</p>
+      <pre>
+          <code>
+            {
+                "usuario_nomde": "string",
+                "usuario_email": "usdsder@exaesddmplde.com",
+                "usuario_senha": "string",
+                "usuario_telefone": "09461549318",
+                "usuario_aniversario": "2024-03-19",
+                "usuario_nivel": "1",
+                "usuario_ativo": true
+              }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para um usuário adicionado com sucesso:</p>
+      <pre>
+          <code>
+            {
+              "status": 200,
+              "message": "Usuário adicionado com sucesso",
+              "data": {
+                "usuario_id": 123 // ID do usuário adicionado
+              }
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para um usuário já existente:</p>
+      <pre>
+          <code>
+            {
+              "status": 409,
+              "message": "Usuário já inserido"
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+          <code>
+            {
+              "status": 500,
+              "message": "Erro interno do servidor",
+              "error": "MENSAGEM_DE_ERRO"
+            }
+          </code>
+        </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>PUT /api/usuarios/{id}</h2>
+      <p>Esta rota atualiza os dados de um usuário existente.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Para obter o token JWT, consulte <a href=login.html>/api/login.</a></p>
+      <p>Parâmetros de consulta:</p>
+      <ul>
+        <li><strong>id</strong>: O ID do usuário a ser atualizado.</li>
+      </ul>
+      <p>Corpo da solicitação:</p>
+      <pre>
+          <code>
+            {
+              "usuario_nome": "Novo Nome do Usuário",
+              "usuario_email": "novo_email@example.com",
+              // Outros campos atualizados do usuário
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para um usuário atualizado com sucesso:</p>
+      <pre>
+          <code>
+            {
+              "status": 200,
+              "message": "Usuário atualizado com sucesso"
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para um usuário não encontrado:</p>
+      <pre>
+          <code>
+            {
+              "status": 404,
+              "message": "Usuário não encontrado"
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+          <code>
+            {
+              "status": 500,
+              "message": "Erro interno do servidor",
+              "error": "MENSAGEM_DE_ERRO"
+            }
+          </code>
+        </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>POST /api/usuarios/sync</h2>
+      <p>Esta rota sincroniza as tabelas de usuários e níveis de usuários.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Para obter o token JWT, consulte <a href=login.html>/api/login.</a></p>
+      <p>Exemplo de resposta para tabelas atualizadas com sucesso:</p>
+      <pre>
+          <code>
+            {
+              "status": 200,
+              "message": "Tabelas atualizadas"
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+          <code>
+            {
+              "status": 500,
+              "message": "Erro interno do servidor",
+              "error": "MENSAGEM_DE_ERRO"
+            }
+          </code>
+        </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>GET /api/usuarios/niveis</h2>
+      <p>Esta rota retorna todos os níveis de usuários disponíveis.</p>
+      <p>Exemplo de resposta:</p>
+      <pre>
+          <code>
+            {
+              "status": 200,
+              "message": "3 níveis encontrados",
+              "data": [
+                {
+                  "usuario_nivel_id": 1,
+                  "usuario_nivel": "Administrador",
+                  "usuario_nivel_descricao": "Usuário com permissão completa no sistema",
+                  "nivel_usuario_criado_em": "2024-03-19T17:50:44.000Z"
+                }
+              ]
+            }
+          </code>
+        </pre>
+
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+          <code>
+            {
+              "status": 500,
+              "message": "Erro interno do servidor",
+              "error": "MENSAGEM_DE_ERRO"
+            }
+          </code>
+        </pre>
+    </div>
+
+
+  </div>
+
+  <!-- Adicione o link para o arquivo JavaScript do Bootstrap (opcional, dependendo dos componentes que você estiver utilizando) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

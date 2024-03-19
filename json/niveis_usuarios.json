@@ -1,0 +1,12 @@
+[
+    {
+        "usuario_nivel_id": 1,
+        "usuario_nivel": "Administrdador",
+        "usuario_nivel_descricao": "Usuário com permissão completa no sistema"
+    },
+    {   
+        "usuario_nivel_id": 2,
+        "usuario_nivel": "Assessor",
+        "usuario_nivel_descricao": "Usuário com permissão limitada"
+    }
+]

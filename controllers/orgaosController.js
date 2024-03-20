@@ -31,7 +31,6 @@ async function getOrganizations(itens, page, orderBy, orderDirection) {
     }
 }
 
-
 async function getOrganizationById(id) {
     try {
         const orgao = await orgaosModel.Orgaos.findByPk(id);

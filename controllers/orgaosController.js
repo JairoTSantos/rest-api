@@ -113,7 +113,7 @@ async function updateOrganization(id, newData) {
         }
 
         if (Object.keys(newData).length === 0) {
-            return { status: 400, message: 'Órgão para atualizar' };
+            return { status: 400, message: 'Nada para atualizar' };
         }
 
         await orgao.update(newData);

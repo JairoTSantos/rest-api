@@ -114,6 +114,27 @@ async function addPeople(data){
 
 }
 
+async function updatePeople(id, newData) {
+    try {
+        const orgao = await pessoasModel.Pessoas.findByPk(id);
+
+        if (!orgao) {
+            return { status: 404, message: 'Pessoa não encontrada' };
+        }
+
+        if (Object.keys(newData).length === 0) {
+            return { status: 400, message: 'Nada para atualizar' };
+        }
+
+        await orgao.update(newData);
+
+        return { status: 200, message: 'Pessoa atualizada com sucesso' };
+    } catch (error) {
+        return { status: 500, message: 'Erro interno do servidor', error: error };
+    }
+}
+
+
 async function syncPeoples() {
     try {
         await pessoasModel.TiposPessoas.sync({ alter: true });
@@ -133,4 +154,4 @@ async function syncPeoples() {
 }
 
 
-module.exports = { syncPeoples, getPeoples, addPeople, getPeopleById, deletePeople };
+module.exports = { syncPeoples, getPeoples, addPeople, getPeopleById, deletePeople, updatePeople };

@@ -37,6 +37,13 @@ router.post('/api/pessoas', async (req, res) => {
 
 });
 
+router.put('/api/pessoas/:id', async (req, res) => {
+    let id = req.params.id;
+    const pessoaPost = { pessoa_nome, pessoa_email, pessoa_telefone, pessoa_endereco, pessoa_bairro, pessoa_estado, pessoa_cep, pessoa_criado_por, pessoa_sexo, pessoa_municipio, pessoa_informacoes, pessoa_orgao_id, pessoa_tipo_id} = req.body;
+    const resp = await pessoasController.updatePeople(id, pessoaPost);
+    res.status(resp.status).json(resp);
+});
+
 router.get('/api/pessoas-sync', async (req, res) => {
     const resp = await pessoasController.syncPeoples();
     res.status(resp.status).json(resp);

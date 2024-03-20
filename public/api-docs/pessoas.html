@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentação das Rotas de Pessoas</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-size: 0.8em;
+    }
+
+    pre {
+      background-color: lightgray;
+      margin: 0px;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .endpoint {
+      margin-top: 30px;
+    }
+
+    .endpoint h2 {
+      font-size: 1.2em;
+      color: #007bff;
+    }
+
+    .endpoint p {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1 class="text-center mb-5">Documentação das Rotas de Pessoas</h1>
+    <div class="card">
+      <div class="card-body p-2">
+        <a href="/api-docs" class="btn btn-primary btn-sm">Voltar</a>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <h2>GET /api/pessoas</h2>
+      <p>Esta rota retorna uma lista paginada de pessoas.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Parâmetros de consulta:</p>
+      <ul>
+        <li><strong>itens</strong>: O número de itens por página.</li>
+        <li><strong>pagina</strong>: O número da página a ser retornada.</li>
+        <li><strong>ordenarPor</strong>: O campo para ordenação (opcional).</li>
+        <li><strong>ordem</strong>: A direção da ordenação (ASC ou DESC, opcional).</li>
+      </ul>
+      <p>Exemplo de resposta:</p>
+      <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "1 pessoas encontradas",
+            "data": [
+              {
+                "pessoa_id": "453d9f00-b421-4b4a-b995-2bee9a61f0e4",
+                "pessoa_nome": "João Silva",
+                "pessoa_email": "joao.silva@example.com",
+                // outros campos de pessoa
+              }
+            ],
+            "links": {
+              "first": "/api/pessoas?itens=10&pagina=1",
+              "self": "/api/pessoas?itens=10&pagina=2",
+              "last": "/api/pessoas?itens=10&pagina=3"
+            }
+          }
+        </code>
+      </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>GET /api/pessoas/{id}</h2>
+      <p>Esta rota retorna uma pessoa específica pelo seu ID.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Parâmetros de consulta:</p>
+      <ul>
+        <li><strong>id</strong>: O ID da pessoa.</li>
+      </ul>
+      <p>Exemplo de resposta para uma pessoa encontrada:</p>
+      <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "Pessoa encontrada",
+            "data": {
+              "pessoa_id": "453d9f00-b421-4b4a-b995-2bee9a61f0e4",
+              "pessoa_nome": "João Silva",
+              "pessoa_email": "joao.silva@example.com",
+              // outros campos de pessoa
+            }
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para uma pessoa não encontrada:</p>
+      <pre>
+        <code>
+          {
+            "status": 404,
+            "message": "Pessoa não encontrada"
+          }
+        </code>
+      </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>DELETE /api/pessoas/{id}</h2>
+      <p>Esta rota exclui uma pessoa específica pelo seu ID.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Parâmetros de consulta:</p>
+      <ul>
+        <li><strong>id</strong>: O ID da pessoa a ser excluída.</li>
+      </ul>
+      <p>Exemplo de resposta para uma pessoa excluída com sucesso:</p>
+      <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "Pessoa excluída com sucesso"
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para uma pessoa não encontrada:</p>
+      <pre>
+        <code>
+          {
+            "status": 404,
+            "message": "Pessoa não encontrada"
+          }
+        </code>
+      </pre>
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+        <code>
+          {
+            "status": 500,
+            "message": "Erro interno do servidor",
+            "error": "MENSAGEM_DE_ERRO"
+          }
+        </code>
+      </pre>
+    </div>
+
+    <div class="endpoint">
+      <h2>POST /api/pessoas</h2>
+      <p>Esta rota adiciona uma nova pessoa.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Corpo da solicitação:</p>
+      <pre>
+          <code>
+            {
+                "pessoa_nome": "string",
+                "pessoa_email": "usdsder@exaesddmplde.com",
+                // outros campos de pessoa
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para uma pessoa adicionada com sucesso:</p>
+      <pre>
+          <code>
+            {
+              "status": 200,
+              "message": "Pessoa adicionada com sucesso",
+              "data": {
+                "pessoa_id": "123" // ID da pessoa adicionada
+              }
+            }
+          </code>
+        </pre>
+      <p>Exemplo de resposta para uma pessoa já existente:</p>
+      <pre>
+          <code>
+            {
+              "status": 409,
+              "message": "Pessoa já inserida"
+            }
+        </code>
+      </pre>
+    <p>Exemplo de resposta para um erro interno do servidor:</p>
+    <pre>
+        <code>
+          {
+            "status": 500,
+            "message": "Erro interno do servidor",
+            "error": "MENSAGEM_DE_ERRO"
+          }
+        </code>
+      </pre>
+  </div>
+
+  <div class="endpoint">
+    <h2>PUT /api/pessoas/{id}</h2>
+    <p>Esta rota atualiza os dados de uma pessoa existente.</p>
+    <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+    <p>Parâmetros de consulta:</p>
+    <ul>
+      <li><strong>id</strong>: O ID da pessoa a ser atualizada.</li>
+    </ul>
+    <p>Corpo da solicitação:</p>
+    <pre>
+        <code>
+          {
+            "pessoa_nome": "Novo Nome da Pessoa",
+            "pessoa_email": "novo_email@example.com",
+            // outros campos atualizados da pessoa
+          }
+        </code>
+      </pre>
+    <p>Exemplo de resposta para uma pessoa atualizada com sucesso:</p>
+    <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "Pessoa atualizada com sucesso"
+          }
+        </code>
+      </pre>
+    <p>Exemplo de resposta para uma pessoa não encontrada:</p>
+    <pre>
+        <code>
+          {
+            "status": 404,
+            "message": "Pessoa não encontrada"
+          }
+        </code>
+      </pre>
+    <p>Exemplo de resposta para um erro interno do servidor:</p>
+    <pre>
+        <code>
+          {
+            "status": 500,
+            "message": "Erro interno do servidor",
+            "error": "MENSAGEM_DE_ERRO"
+          }
+        </code>
+      </pre>
+  </div>
+
+  <div class="endpoint">
+    <h2>GET /api/pessoas-sync</h2>
+    <p>Esta rota sincroniza as tabelas de pessoas e tipos de pessoas.</p>
+    <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+    <p>Exemplo de resposta para tabelas atualizadas com sucesso:</p>
+    <pre>
+        <code>
+          {
+            "status": 200,
+            "message": "Tabelas atualizadas"
+          }
+        </code>
+      </pre>
+    <p>Exemplo de resposta para um erro interno do servidor:</p>
+    <pre>
+        <code>
+          {
+            "status": 500,
+            "message": "Erro interno do servidor",
+            "error": "MENSAGEM_DE_ERRO"
+          }
+        </code>
+      </pre>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

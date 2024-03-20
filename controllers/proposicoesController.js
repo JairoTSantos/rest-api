@@ -4,7 +4,48 @@ const https = require('https');//remover assim q a cd arrumar o dados abertos
 const proposicoesModel = require('../models/proposicoesModel');
 
 
-async function getAutores(ano) {
+async function getProposicoes(itens, page, orderBy, orderDirection, ano, tipo, arquivo) {
+    try {
+        let order = [];
+        if (orderBy && orderDirection) {
+            order.push([orderBy, orderDirection.toUpperCase()]);
+        }
+
+        const proposicoes = await proposicoesModel.Proposicoes.findAndCountAll({
+            where: {
+                proposicao_ano: ano,
+                proposicao_sigla: tipo,
+                proposicao_arquivo: arquivo
+            },
+            limit: parseInt(itens),
+            offset: parseInt(itens) * (page - 1),
+            order,
+            include: [
+                {
+                    model: proposicoesModel.AutoresProposicoes,
+                    required: true,
+                    attributes: ['autor_nome', 'autor_partido', 'autor_estado', 'autor_id']
+                }
+            ]
+        });
+        
+        const totalPages = Math.ceil(proposicoes.count / itens);
+
+        const links = {
+            first: `/api/proposicoes?itens=${itens}&pagina=1&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}`,
+            self: `/api/proposicoes?itens=${itens}&pagina=${page}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}`,
+            last: `/api/proposicoes?itens=${itens}&pagina=${totalPages}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}`
+        };
+        
+        return { status: 200, message: proposicoes.count + ' proposições encontradas', data: proposicoes.rows, links };
+    } catch (error) {
+        return { status: 500, message: 'Erro interno do servidor', error: error };
+    }
+}
+
+
+
+async function updateAutores(ano) {
     try {
 
         //remover assim q a cd arrumar o dados abertos    
@@ -35,19 +76,19 @@ async function getAutores(ano) {
     }
 }
 
-async function getProposicoes(ano) {
+async function updateProposicoes(ano) {
     try {
 
-        //remover assim q a cd arrumar o dados abertos    
+        //remover assim que a CD arrumar os dados abertos    
         const agent = new https.Agent({
             rejectUnauthorized: false
         });
 
         await proposicoesModel.Proposicoes.destroy({ where: { proposicao_ano: ano } });
-        const response = await axios.get(`https://dadosabertos.camara.leg.br/arquivos/proposicoes/json/proposicoes-${ano}.json`, { httpsAgent: agent /*remover assim q a cd arrumar o dados abertos*/ });
+        const response = await axios.get(`https://dadosabertos.camara.leg.br/arquivos/proposicoes/json/proposicoes-${ano}.json`, { httpsAgent: agent /*remover assim que a CD arrumar os dados abertos*/ });
         const proposicoes = response.data.dados;
 
-        const proposicoesParaInserir = proposicoes.map(proposicao => ({
+        const proposicoesParaInserir = proposicoes.filter(proposicao => proposicao.siglaTipo !== 'MPV').map(proposicao => ({
             proposicao_id: proposicao.id,
             proposicao_ano: ano,
             proposicao_numero: proposicao.numero,
@@ -66,6 +107,7 @@ async function getProposicoes(ano) {
     }
 }
 
+
 async function sync() {
     try {
         await proposicoesModel.Proposicoes.sync({ alter: true });
@@ -77,4 +119,4 @@ async function sync() {
 }
 
 
-module.exports = { getAutores, sync, getProposicoes };
+module.exports = { updateAutores, updateProposicoes, sync, getProposicoes };

@@ -20,9 +20,9 @@ async function getOrganizations(itens, page, orderBy, orderDirection) {
         const totalPages = Math.ceil(orgaos.count / itens);
 
         const links = {
-            first: `/api/orgaos?itens=${itens}&pagina=1&orderBy=${orderBy}&orderDirection=${orderDirection}`,
-            self: `/api/orgaos?itens=${itens}&pagina=${page}&orderBy=${orderBy}&orderDirection=${orderDirection}`,
-            last: `/api/orgaos?itens=${itens}&pagina=${totalPages}&orderBy=${orderBy}&orderDirection=${orderDirection}`
+            first: `/api/orgaos?itens=${itens}&pagina=1&ordenarPor=${orderBy}&ordem=${orderDirection}`,
+            self: `/api/orgaos?itens=${itens}&pagina=${page}&ordenarPor=${orderBy}&ordem=${orderDirection}`,
+            last: `/api/orgaos?itens=${itens}&pagina=${totalPages}&ordenarPor=${orderBy}&ordem=${orderDirection}`
         };
 
         return { status: 200, message: orgaos.rows.length + ' órgãos encontrados', data: orgaos.rows, links };

@@ -5,8 +5,8 @@ const orgaosController = require('../controllers/orgaosController');
 router.get('/api/orgaos', async (req, res) => {
     let itens = parseInt(req.query.itens) || 10;
     let page = parseInt(req.query.pagina) || 1;
-    let orderBy = req.query.orderBy || 'orgao_nome';
-    let orderDirection = req.query.orderDirection || 'ASC';
+    let orderBy = req.query.ordenarPor || 'orgao_nome';
+    let orderDirection = req.query.ordem || 'ASC';
 
     const resp = await orgaosController.getOrganizations(itens, page, orderBy, orderDirection);
     res.status(resp.status).json(resp);

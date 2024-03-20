@@ -24,7 +24,7 @@ async function getUsers(itens, page) {
             last: `/api/usuarios?itens=${itens}&pagina=${totalPages}`
         };
 
-        return { status: 200, message: usuarios.rows.length + ' usuários encontrados', data: usuarios.rows, links };
+        return { status: 200, message: `${usuarios.rows.length} usuários encontrados`, data: usuarios.rows, links };
     } catch (error) {
         if (error.original.errno === 1451) {
             return { status: 401, message: 'Não é possível excluir esse usuário devido às referências importantes a ele associadas', error: error.name };
@@ -76,8 +76,11 @@ async function addUser(data) {
     } catch (error) {
         if (error.original.errno === 1062) {
             return { status: 409, message: 'Usuário já inserido' };
+        } else if (error.name === 'bcryptjsError') {
+            return { status: 500, message: 'Erro ao gerar o hash da senha', error: error };
+        } else {
+            return { status: 500, message: 'Erro interno do servidor', error: error.name };
         }
-        return { status: 500, message: 'Erro interno do servidor', error: error.name };
     }
 }
 
@@ -106,7 +109,7 @@ async function getLevelUsers() {
         const niveis = await usuariosModel.NivelUsuario.findAndCountAll();
         return { status: 200, message: niveis.rows.length + ' níveis encontrados', data: niveis.rows };
     } catch (error) {
-        return { status: 500, message: 'Erro interno do servidor', error: error.name };
+        return { status: 200, message: `${niveis.rows.length} níveis encontrados`, data: niveis.rows };
     }
 }
 

@@ -38,7 +38,7 @@ async function getOrganizations(itens, page, orderBy, orderDirection) {
             last: `/api/orgaos?itens=${itens}&pagina=${totalPages}&ordenarPor=${orderBy}&ordem=${orderDirection}`
         };
 
-        return { status: 200, message: orgaos.rows.length + ' órgãos encontrados', data: orgaos.rows, links };
+        return { status: 200, message: `${orgaos.rows.length} órgãos encontrados`, data: orgaos.rows, links };
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error };
     }
@@ -127,7 +127,7 @@ async function updateOrganization(id, newData) {
 async function getTypesOrganizations() {
     try {
         const tipos = await orgaosModel.TiposOrgaos.findAndCountAll();
-        return { status: 200, message: tipos.rows.length + ' tipos encontrados', data: tipos.rows };
+        return { status: 200, message: `${orgaos.rows.length} órgãos encontrados`, data: orgaos.rows, links };
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error.name };
     }

@@ -43,7 +43,7 @@ async function getPeoples(itens, page, orderBy, orderDirection) {
             last: `/api/pessoas?itens=${itens}&pagina=${totalPages}&ordenarPor=${orderBy}&ordem=${orderDirection}`
         };
 
-        return { status: 200, message: orgaos.rows.length + ' pessoas encontradas', data: orgaos.rows, links };
+        return { status: 200, message: `${orgaos.rows.length} pessoas encontradas`, data: orgaos.rows, links };
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error };
     }
@@ -76,6 +76,7 @@ async function getPeopleById(id) {
         }
 
         return { status: 200, message: 'Pessoa encontrada', data: orgao };
+
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error };
     }

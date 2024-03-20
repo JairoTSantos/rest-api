@@ -278,7 +278,7 @@
           }
         </code>
       </pre>
-      
+
       <p>Exemplo de resposta para um erro interno do servidor:</p>
       <pre>
         <code>
@@ -289,6 +289,32 @@
           }
         </code>
       </pre>
+    </div>
+    <!-- GET /api/orgaos-sync -->
+    <div class="endpoint">
+      <h2>GET /api/orgaos-sync</h2>
+      <p>Esta rota sincroniza as tabelas de órgãos e tipos de órgãos.</p>
+      <p><strong>Requer autenticação:</strong> Sim (Token JWT no cabeçalho Authorization)</p>
+      <p>Para obter o token JWT, consulte <a href=login.html>/api/login.</a></p>
+      <p>Exemplo de resposta para tabelas atualizadas com sucesso:</p>
+      <pre>
+    <code>
+      {
+        "status": 200,
+        "message": "Tabelas atualizadas"
+      }
+    </code>
+  </pre>
+      <p>Exemplo de resposta para um erro interno do servidor:</p>
+      <pre>
+    <code>
+      {
+        "status": 500,
+        "message": "Erro interno do servidor",
+        "error": "MENSAGEM_DE_ERRO"
+      }
+    </code>
+  </pre>
     </div>
 
 

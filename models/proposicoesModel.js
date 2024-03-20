@@ -89,6 +89,7 @@ const Proposicoes = sequelize.define('proposicoes', {
     timestamps: false,
 });
 
+
 Proposicoes.hasMany(AutoresProposicoes, { foreignKey: 'proposicao_id', sourceKey: 'proposicao_id' });
 AutoresProposicoes.hasMany(Proposicoes, { foreignKey: 'proposicao_id', sourceKey: 'proposicao_id' });
 

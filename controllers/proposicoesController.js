@@ -85,9 +85,9 @@ async function getAutorias(itens, pagina, orderBy, orderDirection, autor, ano, t
         const totalPages = Math.ceil(autorias.count / itens);
 
         const links = {
-            first: `/api/autorias?itens=${itens}&pagina=1&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`,
-            self: `/api/autorias?itens=${itens}&pagina=${pagina}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`,
-            last: `/api/autorias?itens=${itens}&pagina=${totalPages}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`
+            first: `/api/autorias?itens=${itens}&pagina=1&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`,
+            self: `/api/autorias?itens=${itens}&pagina=${pagina}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`,
+            last: `/api/autorias?itens=${itens}&pagina=${totalPages}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`
         };
 
         return { status: 200, message: `${autorias.count} proposições encontradas`, data: dados, links };
@@ -95,8 +95,6 @@ async function getAutorias(itens, pagina, orderBy, orderDirection, autor, ano, t
         return { status: 500, message: 'Erro interno do servidor', error: error.name };
     }
 }
-
-
 
 async function updateAutores(ano) {
     try {

@@ -29,6 +29,16 @@ router.get('/api/proposicoes', async (req, res) => {
     res.status(resp.status).json(resp);
 });
 
+router.get('/api/autorias', async (req, res) => {
+   
+    autor = req.query.autor || 204379;
+    ano = req.query.ano || 2023;
+    tipo = req.query.tipo || 'PL';
+
+    const resp = await proposicoesController.getAutorias(autor, ano, tipo);
+    res.status(resp.status).json(resp);
+});
+
 
 router.get('/api/proposicoes-sync', async (req, res) => {
     const resp = await proposicoesController.sync();

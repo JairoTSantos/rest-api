@@ -2,6 +2,7 @@ const axios = require('axios');
 const https = require('https');//remover assim q a cd arrumar o dados abertos
 
 const proposicoesModel = require('../models/proposicoesModel');
+const { where } = require('sequelize');
 
 
 async function getProposicoes(itens, page, orderBy, orderDirection, ano, tipo, arquivo) {
@@ -28,7 +29,7 @@ async function getProposicoes(itens, page, orderBy, orderDirection, ano, tipo, a
                 }
             ]
         });
-        
+
         const totalPages = Math.ceil(proposicoes.count / itens);
 
         const links = {
@@ -36,10 +37,49 @@ async function getProposicoes(itens, page, orderBy, orderDirection, ano, tipo, a
             self: `/api/proposicoes?itens=${itens}&pagina=${page}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}`,
             last: `/api/proposicoes?itens=${itens}&pagina=${totalPages}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}`
         };
-        
+
         return { status: 200, message: proposicoes.count + ' proposições encontradas', data: proposicoes.rows, links };
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error };
+    }
+}
+
+async function getAutorias(autor, ano, tipo) {
+    try {
+
+        const autorias = await proposicoesModel.AutoresProposicoes.findAndCountAll({
+            where: {
+                autor_id: autor,
+                proposicao_ano: ano,
+                autor_proponente: 1,
+                autor_assinatura: 1
+            },
+            include: [
+                {
+                    model: proposicoesModel.Proposicoes,
+                    where: {
+                        proposicao_sigla: tipo,
+                        proposicao_arquivo: 0
+                    },
+                    required: true
+                }
+            ]
+        });
+
+        const dados = autorias.rows.map(row => ({
+            proposicao_id: row.proposicoes[0].proposicao_id,
+            proposicao_ano: row.proposicoes[0].proposicao_ano,
+            proposicao_numero: row.proposicoes[0].proposicao_numero,
+            proposicao_sigla: row.proposicoes[0].proposicao_sigla,
+            proposicao_titulo: row.proposicoes[0].proposicao_titulo,
+            proposicao_ementa: row.proposicoes[0].proposicao_ementa,
+            proposicao_apresentacao: row.proposicoes[0].proposicao_apresentacao,
+            proposicao_arquivo: row.proposicoes[0].proposicao_arquivo
+        }));
+
+        return { status: 200,  message: autorias.count + ' proposições encontradas', data: dados };
+    } catch (error) {
+        return { status: 500, message: 'Erro interno do servidor', error: error.name };
     }
 }
 
@@ -107,7 +147,6 @@ async function updateProposicoes(ano) {
     }
 }
 
-
 async function sync() {
     try {
         await proposicoesModel.Proposicoes.sync({ alter: true });
@@ -119,4 +158,4 @@ async function sync() {
 }
 
 
-module.exports = { updateAutores, updateProposicoes, sync, getProposicoes };
+module.exports = { updateAutores, updateProposicoes, sync, getProposicoes, getAutorias };

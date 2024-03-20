@@ -90,6 +90,6 @@ const Proposicoes = sequelize.define('proposicoes', {
 });
 
 Proposicoes.hasMany(AutoresProposicoes, { foreignKey: 'proposicao_id', sourceKey: 'proposicao_id' });
-
+AutoresProposicoes.hasMany(Proposicoes, { foreignKey: 'proposicao_id', sourceKey: 'proposicao_id' });
 
 module.exports = { AutoresProposicoes, Proposicoes };

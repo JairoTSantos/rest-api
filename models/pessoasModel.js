@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 const sequelize = require('../middleware/db_config');
 
 const usuariosModel = require('../models/usuariosModel');
+const orgaosModel = require('../models/orgaosModel');
+
 
 const TiposPessoas = sequelize.define('tipos_pessoas', {
     pessoa_tipo_id: {
@@ -74,18 +76,30 @@ const Pessoas = sequelize.define('pessoas', {
         allowNull: false,
         references: {
             model: 'tipos_pessoas',
-            key: 'pessoa_tipo_id',
-            onDelete: 'RESTRICT'
-        }
+            key: 'pessoa_tipo_id'
+        },
+        onDelete: 'RESTRICT',
+        onUpdate: 'NO ACTION'
+    },
+    pessoa_orgao_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+            model: orgaosModel.Orgaos,
+            key: 'orgao_id'
+        },
+        onDelete: 'RESTRICT',
+        onUpdate: 'NO ACTION'
     },
     pessoa_criado_por: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
             model: usuariosModel.Usuario,
-            key: 'usuario_id',
-            onDelete: 'RESTRICT'
-        }
+            key: 'usuario_id'
+        },
+        onDelete: 'RESTRICT',
+        onUpdate: 'NO ACTION'
     }
 }, {
     createdAt: 'pessoa_criado_em',
@@ -94,5 +108,6 @@ const Pessoas = sequelize.define('pessoas', {
 
 Pessoas.belongsTo(TiposPessoas, { foreignKey: 'pessoa_tipo_id', targetKey: 'pessoa_tipo_id' });
 Pessoas.belongsTo(usuariosModel.Usuario, { foreignKey: 'pessoa_criado_por', targetKey: 'usuario_id' });
+Pessoas.belongsTo(orgaosModel.Orgaos, { foreignKey: 'pessoa_orgao_id', targetKey: 'orgao_id' });
 
 module.exports = { TiposPessoas, Pessoas };

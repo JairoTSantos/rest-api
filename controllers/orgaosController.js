@@ -83,6 +83,9 @@ async function deleteOrganization(id) {
 
         return { status: 200, message: 'Órgão excluído com sucesso' };
     } catch (error) {
+        if (error.original.errno === 1451) {
+            return { status: 401, message: 'Não é possível excluir esse órgão devido às referências importantes a ele associadas', error: error.name };
+        }
         return { status: 500, message: 'Erro interno do servidor', error: error.name };
     }
 }

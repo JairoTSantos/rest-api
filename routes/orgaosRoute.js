@@ -20,7 +20,7 @@ router.get('/api/orgaos/:id', async (req, res) => {
 });
 
 router.delete('/api/orgaos/:id', async (req, res) => {
-    let id = parseInt(req.params.id);
+    let id = req.params.id;
 
     const resp = await orgaosController.deleteOrganization(id);
     res.status(resp.status).json(resp);

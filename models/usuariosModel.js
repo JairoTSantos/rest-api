@@ -60,9 +60,10 @@ const Usuario = sequelize.define('usuarios', {
     allowNull: false,
     references: {
       model: 'niveis_usuarios',
-      key: 'usuario_nivel_id',
-      onDelete: 'RESTRICT'
-    }
+      key: 'usuario_nivel_id'
+    },
+    onDelete: 'RESTRICT',
+    onUpdate: 'NO ACTION'
   }
 }, {
   createdAt: 'usuario_criado_em',

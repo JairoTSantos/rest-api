@@ -4,6 +4,7 @@ const path = require('path');
 
 const pessoasModel = require('../models/pessoasModel');
 const usuariosModel = require('../models/usuariosModel');
+const orgaosModel = require('../models/orgaosModel');
 
 async function getPeoples(itens, page, orderBy, orderDirection) {
     try {
@@ -26,6 +27,10 @@ async function getPeoples(itens, page, orderBy, orderDirection) {
                     model: usuariosModel.Usuario,
                     required: true,
                     attributes: ['usuario_id', 'usuario_nome']
+                },{
+                    model: orgaosModel.Orgaos,
+                    required: true,
+                    attributes: ['orgao_id', 'orgao_nome']
                 }
             ]
         });
@@ -57,6 +62,11 @@ async function getPeopleById(id) {
                     model: usuariosModel.Usuario,
                     required: true,
                     attributes: ['usuario_id', 'usuario_nome']
+                },
+                {
+                    model: orgaosModel.Orgaos,
+                    required: true,
+                    attributes: ['orgao_id', 'orgao_nome']
                 }
             ]
         });
@@ -68,6 +78,25 @@ async function getPeopleById(id) {
         return { status: 200, message: 'Pessoa encontrada', data: orgao };
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error };
+    }
+}
+
+async function deletePeople(id) {
+    try {
+        const pessoa = await pessoasModel.Pessoas.findByPk(id);
+
+        if (!pessoa) {
+            return { status: 404, message: 'Pessoa não encontrada' };
+        }
+
+        await pessoa.destroy();
+
+        return { status: 200, message: 'Pessoa excluída com sucesso' };
+    } catch (error) {
+        if (error.original.errno === 1451) {
+            return { status: 401, message: 'Não é possível excluir essa pessoa devido às referências importantes a ele associadas', error: error.name };
+        }
+        return { status: 500, message: 'Erro interno do servidor', error: error.name };
     }
 }
 
@@ -99,9 +128,9 @@ async function syncPeoples() {
         await pessoasModel.Pessoas.sync({ alter: true });
         return { status: 200, message: 'Tabelas atualizadas' };
     } catch (error) {
-        return { status: 500, message: 'Erro interno do servidor', error: error.name };
+        return { status: 500, message: 'Erro interno do servidor', error: error };
     }
 }
 
 
-module.exports = { syncPeoples, getPeoples, addPeople, getPeopleById };
+module.exports = { syncPeoples, getPeoples, addPeople, getPeopleById, deletePeople };

@@ -70,18 +70,20 @@ const Orgaos = sequelize.define('orgaos', {
     allowNull: false,
     references: {
       model: 'tipos_orgaos',
-      key: 'orgao_tipo_id',
-      onDelete: 'RESTRICT'
-    }
+      key: 'orgao_tipo_id'
+    },
+    onDelete: 'RESTRICT',
+    onUpdate: 'NO ACTION'
   },
   orgao_criado_por: {
     type: Sequelize.UUID,
     allowNull: false,
     references: {
       model: usuariosModel.Usuario,
-      key: 'usuario_id',
-      onDelete: 'RESTRICT'
-    }
+      key: 'usuario_id'
+    },
+    onDelete: 'RESTRICT',
+    onUpdate: 'NO ACTION'
   }
 }, {
   createdAt: 'orgao_criado_em',

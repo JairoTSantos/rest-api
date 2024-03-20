@@ -1,0 +1,12 @@
+[
+    {
+        "pessoa_tipo_id": 0,
+        "pessoa_tipo_nome": "Sem tipo",
+        "pessoa_tipo_descricao": "Sem um tipo definido"
+    },
+    {
+        "pessoa_tipo_id": 1,
+        "pessoa_tipo_nome": "Familiar",
+        "pessoa_tipo_descricao": "Familia do deputado"
+    }
+]

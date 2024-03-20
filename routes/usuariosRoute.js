@@ -18,7 +18,7 @@ router.get('/api/usuarios/:id', async (req, res) => {
 });
 
 router.delete('/api/usuarios/:id', async (req, res) => {
-    let id = parseInt(req.params.id);
+    let id = req.params.id;
 
     const resp = await usuariosController.deleteUser(id);
     res.status(resp.status).json(resp);
@@ -36,7 +36,7 @@ router.post('/api/usuarios', async (req, res) => {
 });
 
 router.put('/api/usuarios/:id', async (req, res) => {
-    let id = parseInt(req.params.id);
+    let id = req.params.id;
     const usuarioPost = { usuario_nome, usuario_email, usuario_senha, usuario_telefone, usuario_aniversario, usuario_nivel, usuario_ativo } = req.body;
     const resp = await usuariosController.updateUser(id, usuarioPost);
     res.status(resp.status).json(resp);

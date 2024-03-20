@@ -4,6 +4,97 @@ const path = require('path');
 
 const orgaosModel = require('../models/orgaosModel');
 
+async function getOrganizations(itens, page, orderBy, orderDirection) {
+    try {
+        let order = [];
+        if (orderBy && orderDirection) {
+            order.push([orderBy, orderDirection.toUpperCase()]);
+        }
+
+        const orgaos = await orgaosModel.Orgaos.findAndCountAll({
+            limit: itens,
+            offset: itens * (page - 1),
+            order
+        });
+
+        const totalPages = Math.ceil(orgaos.count / itens);
+
+        const links = {
+            first: `/api/orgaos?itens=${itens}&pagina=1&orderBy=${orderBy}&orderDirection=${orderDirection}`,
+            self: `/api/orgaos?itens=${itens}&pagina=${page}&orderBy=${orderBy}&orderDirection=${orderDirection}`,
+            last: `/api/orgaos?itens=${itens}&pagina=${totalPages}&orderBy=${orderBy}&orderDirection=${orderDirection}`
+        };
+
+        return { status: 200, message: orgaos.rows.length + ' órgãos encontrados', data: orgaos.rows, links };
+    } catch (error) {
+        return { status: 500, message: 'Erro interno do servidor', error: error.name };
+    }
+}
+
+
+async function getOrganizationById(id) {
+    try {
+        const orgao = await orgaosModel.Orgaos.findByPk(id);
+
+        if (!orgao) {
+            return { status: 404, message: 'Órgão não encontrado' };
+        }
+
+        return { status: 200, message: 'Órgão encontrado', data: orgao };
+    } catch (error) {
+        return { status: 500, message: 'Erro interno do servidor', error: error };
+    }
+}
+
+async function deleteOrganization(id) {
+    try {
+        const orgao = await orgaosModel.Orgaos.findByPk(id);
+
+        if (!orgao) {
+            return { status: 404, message: 'Órgão não encontrado' };
+        }
+
+        await orgao.destroy();
+
+        return { status: 200, message: 'Órgão excluído com sucesso' };
+    } catch (error) {
+        return { status: 500, message: 'Erro interno do servidor', error: error.name };
+    }
+}
+
+async function addOrganization(data){
+
+    try {
+        await orgaosModel.Orgaos.create(data);
+        return { status: 200, message: 'Órgão adicionado com sucesso', data: { orgao_id: data.orgao_id } };
+    } catch (error) {
+        if (error.original.errno === 1062) {
+            return { status: 409, message: 'Órgão já inserido' };
+        }
+        return { status: 500, message: 'Erro interno do servidor', error: error };
+    }
+
+}
+
+async function updateOrganization(id, newData) {
+    try {
+        const orgao = await orgaosModel.Orgaos.findByPk(id);
+
+        if (!orgao) {
+            return { status: 404, message: 'Órgão não encontrado' };
+        }
+
+        if (Object.keys(newData).length === 0) {
+            return { status: 400, message: 'Órgão para atualizar' };
+        }
+
+        await orgao.update(newData);
+
+        return { status: 200, message: 'Órgão atualizado com sucesso' };
+    } catch (error) {
+        return { status: 500, message: 'Erro interno do servidor', error: error };
+    }
+}
 
 async function getTypesOrganizations() {
     try {
@@ -32,4 +123,4 @@ async function syncOrganizations() {
     }
 }
 
-module.exports = {  syncOrganizations, getTypesOrganizations };
+module.exports = {  syncOrganizations, getTypesOrganizations, addOrganization, getOrganizations, getOrganizationById, deleteOrganization, updateOrganization };

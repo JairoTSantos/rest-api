@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../middleware/db_config');
 
+const usuariosModel = require('../models/usuariosModel');
 
 const TiposOrgaos = sequelize.define('tipos_orgaos', {
   orgao_tipo_id: {
@@ -38,15 +39,15 @@ const Orgaos = sequelize.define('orgaos', {
   },
   orgao_telefone: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   orgao_endereco: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   orgao_bairro: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   orgao_muncipio: {
     type: Sequelize.STRING,
@@ -58,11 +59,11 @@ const Orgaos = sequelize.define('orgaos', {
   },
   orgao_cep: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   orgao_informacoes: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: true
   },
   orgao_tipo: {
     type: Sequelize.INTEGER,
@@ -70,6 +71,15 @@ const Orgaos = sequelize.define('orgaos', {
     references: {
       model: 'tipos_orgaos',
       key: 'orgao_tipo_id',
+      onDelete: 'RESTRICT'
+    }
+  },
+  orgao_criado_por: {
+    type: Sequelize.UUID,
+    allowNull: false,
+    references: {
+      model: usuariosModel.Usuario,
+      key: 'usuario_id',
       onDelete: 'RESTRICT'
     }
   }

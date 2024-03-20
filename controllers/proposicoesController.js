@@ -44,8 +44,12 @@ async function getProposicoes(itens, page, orderBy, orderDirection, ano, tipo, a
     }
 }
 
-async function getAutorias(autor, ano, tipo) {
+async function getAutorias(itens, pagina, orderBy, orderDirection, autor, ano, tipo, arquivo) {
     try {
+        let order = [];
+        if (orderBy && orderDirection) {
+            order.push([orderBy, orderDirection.toUpperCase()]);
+        }
 
         const autorias = await proposicoesModel.AutoresProposicoes.findAndCountAll({
             where: {
@@ -54,16 +58,17 @@ async function getAutorias(autor, ano, tipo) {
                 autor_proponente: 1,
                 autor_assinatura: 1
             },
-            include: [
-                {
-                    model: proposicoesModel.Proposicoes,
-                    where: {
-                        proposicao_sigla: tipo,
-                        proposicao_arquivo: 0
-                    },
-                    required: true
-                }
-            ]
+            limit: parseInt(itens),
+            offset: parseInt(itens) * (pagina - 1),
+            order,
+            include: [{
+                model: proposicoesModel.Proposicoes,
+                where: {
+                    proposicao_sigla: tipo,
+                    proposicao_arquivo: arquivo
+                },
+                required: true
+            }]
         });
 
         const dados = autorias.rows.map(row => ({
@@ -77,7 +82,15 @@ async function getAutorias(autor, ano, tipo) {
             proposicao_arquivo: row.proposicoes[0].proposicao_arquivo
         }));
 
-        return { status: 200,  message: autorias.count + ' proposições encontradas', data: dados };
+        const totalPages = Math.ceil(autorias.count / itens);
+
+        const links = {
+            first: `/api/autorias?itens=${itens}&pagina=1&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`,
+            self: `/api/autorias?itens=${itens}&pagina=${pagina}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`,
+            last: `/api/autorias?itens=${itens}&pagina=${totalPages}&ordenarPor=${orderBy}&ordem=${orderDirection}&ano=${ano}&tipo=${tipo}&arquivo=${arquivo}&autor=${autor}`
+        };
+
+        return { status: 200, message: `${autorias.count} proposições encontradas`, data: dados, links };
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error.name };
     }

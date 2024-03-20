@@ -19,7 +19,7 @@ router.get('/api/proposicoes', async (req, res) => {
 
     itens = parseInt(itens) || 10;
     pagina = parseInt(pagina) || 1;
-    ordenarPor = ['proposicao_apresentacao', 'proposicao_titulo'].includes(ordenarPor) ? ordenarPor : 'proposicao_apresentacao';
+    ordenarPor = ['proposicao_id', 'proposicao_titulo'].includes(ordenarPor) ? ordenarPor : 'proposicao_apresentacao';
     ordem = ['ASC', 'DESC'].includes(ordem) ? ordem : 'DESC';
     ano = parseInt(ano) || 2024;
     tipo = tipo || 'PL';
@@ -30,12 +30,18 @@ router.get('/api/proposicoes', async (req, res) => {
 });
 
 router.get('/api/autorias', async (req, res) => {
-   
-    autor = req.query.autor || 204379;
-    ano = req.query.ano || 2023;
-    tipo = req.query.tipo || 'PL';
+    let { itens, pagina, ordenarPor, ordem, ano, tipo, arquivo, autor } = req.query;
 
-    const resp = await proposicoesController.getAutorias(autor, ano, tipo);
+    itens = parseInt(itens) || 10;
+    pagina = parseInt(pagina) || 1;
+    ordenarPor = ordenarPor || 'proposicao_id';
+    ordem = ['ASC', 'DESC'].includes(ordem) ? ordem : 'DESC';
+    autor = autor || 204379;
+    ano = ano || 2023;
+    tipo = tipo || 'PL';
+    arquivo = arquivo === 'true';
+
+    const resp = await proposicoesController.getAutorias(itens, pagina, ordenarPor, ordem, autor, ano, tipo, arquivo);
     res.status(resp.status).json(resp);
 });
 

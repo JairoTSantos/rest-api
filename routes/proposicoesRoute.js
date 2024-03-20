@@ -30,8 +30,6 @@ router.get('/api/proposicoes', async (req, res) => {
 });
 
 
-
-
 router.get('/api/proposicoes-sync', async (req, res) => {
     const resp = await proposicoesController.sync();
     res.status(resp.status).json(resp);

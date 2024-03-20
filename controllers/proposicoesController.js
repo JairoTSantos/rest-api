@@ -24,7 +24,7 @@ async function getProposicoes(itens, page, orderBy, orderDirection, ano, tipo, a
                 {
                     model: proposicoesModel.AutoresProposicoes,
                     required: true,
-                    attributes: ['autor_nome', 'autor_partido', 'autor_estado', 'autor_id']
+                    attributes: ['autor_nome', 'autor_partido', 'autor_estado', 'autor_id', 'autor_proponente', 'autor_assinatura']
                 }
             ]
         });

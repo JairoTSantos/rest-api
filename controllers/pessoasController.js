@@ -134,7 +134,6 @@ async function updatePeople(id, newData) {
     }
 }
 
-
 async function syncPeoples() {
     try {
         await pessoasModel.TiposPessoas.sync({ alter: true });

@@ -1,7 +1,7 @@
 [
     {
         "usuario_nivel_id": 1,
-        "usuario_nivel": "Administrdador",
+        "usuario_nivel": "Administrador",
         "usuario_nivel_descricao": "Usuário com permissão completa no sistema"
     },
     {   

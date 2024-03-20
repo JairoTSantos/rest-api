@@ -6,7 +6,27 @@
     },
     {
         "pessoa_tipo_id": 1,
-        "pessoa_tipo_nome": "Familiar",
-        "pessoa_tipo_descricao": "Familia do deputado"
+        "pessoa_tipo_nome": "Familiares",
+        "pessoa_tipo_descricao": "Essa categoria representa os familiares do deputado."
+    },
+    {
+        "pessoa_tipo_id": 2,
+        "pessoa_tipo_nome": "Autoridades políticas",
+        "pessoa_tipo_descricao": "Essa categoria representa as autoridades políticas relacionadas ao deputado."
+    },
+    {
+        "pessoa_tipo_id": 3,
+        "pessoa_tipo_nome": "Imprensa",
+        "pessoa_tipo_descricao": "Essa categoria representa membros da imprensa que cobrem o trabalho do deputado."
+    },
+    {
+        "pessoa_tipo_id": 4,
+        "pessoa_tipo_nome": "Amigos",
+        "pessoa_tipo_descricao": "Essa categoria representa os amigos do deputado."
+    },
+    {
+        "pessoa_tipo_id": 5,
+        "pessoa_tipo_nome": "Eleitores",
+        "pessoa_tipo_descricao": "Essa categoria representa os eleitores do deputado."
     }
 ]

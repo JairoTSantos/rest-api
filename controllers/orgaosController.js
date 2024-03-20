@@ -3,6 +3,7 @@ const path = require('path');
 
 
 const orgaosModel = require('../models/orgaosModel');
+const usuariosModel = require('../models/usuariosModel');
 
 async function getOrganizations(itens, page, orderBy, orderDirection) {
     try {
@@ -14,9 +15,21 @@ async function getOrganizations(itens, page, orderBy, orderDirection) {
         const orgaos = await orgaosModel.Orgaos.findAndCountAll({
             limit: itens,
             offset: itens * (page - 1),
-            order
+            order,
+            include: [
+                {
+                    model: orgaosModel.TiposOrgaos,
+                    required: true,
+                    attributes: ['orgao_tipo_nome']
+                },
+                {
+                    model: usuariosModel.Usuario,
+                    required: true,
+                    attributes: ['usuario_id', 'usuario_nome']
+                }
+            ]
         });
-
+        
         const totalPages = Math.ceil(orgaos.count / itens);
 
         const links = {
@@ -27,7 +40,7 @@ async function getOrganizations(itens, page, orderBy, orderDirection) {
 
         return { status: 200, message: orgaos.rows.length + ' órgãos encontrados', data: orgaos.rows, links };
     } catch (error) {
-        return { status: 500, message: 'Erro interno do servidor', error: error.name };
+        return { status: 500, message: 'Erro interno do servidor', error: error };
     }
 }
 
@@ -118,7 +131,7 @@ async function syncOrganizations() {
         await orgaosModel.Orgaos.sync({ alter: true });
         return { status: 200, message: 'Tabelas atualizadas' };
     } catch (error) {
-        return { status: 500, message: 'Erro interno do servidor', error: error.name };
+        return { status: 500, message: 'Erro interno do servidor', error: error };
     }
 }
 

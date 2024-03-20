@@ -9,7 +9,7 @@ const TiposOrgaos = sequelize.define('tipos_orgaos', {
     primaryKey: true,
     autoIncrement: false
   },
-  orgao_tipo: {
+  orgao_tipo_nome: {
     type: Sequelize.STRING(255),
     allowNull: false,
   },
@@ -88,6 +88,7 @@ const Orgaos = sequelize.define('orgaos', {
   updatedAt: 'orgao_atualizado_em'
 });
 
-
+Orgaos.belongsTo(TiposOrgaos, { foreignKey: 'orgao_tipo', targetKey: 'orgao_tipo_id' });
+Orgaos.belongsTo(usuariosModel.Usuario, {foreignKey: 'orgao_criado_por', targetKey: 'usuario_id'});
 
 module.exports = { TiposOrgaos, Orgaos };

@@ -20,7 +20,7 @@ async function getOrganizations(itens, page, orderBy, orderDirection) {
                 {
                     model: orgaosModel.TiposOrgaos,
                     required: true,
-                    attributes: ['orgao_tipo_nome']
+                    attributes: ['orgao_tipo_nome', 'orgao_descricao']
                 },
                 {
                     model: usuariosModel.Usuario,
@@ -46,7 +46,20 @@ async function getOrganizations(itens, page, orderBy, orderDirection) {
 
 async function getOrganizationById(id) {
     try {
-        const orgao = await orgaosModel.Orgaos.findByPk(id);
+        const orgao = await orgaosModel.Orgaos.findByPk(id ,{
+            include: [
+                {
+                    model: orgaosModel.TiposOrgaos,
+                    required: true,
+                    attributes: ['orgao_tipo_nome', 'orgao_descricao']
+                },
+                {
+                    model: usuariosModel.Usuario,
+                    required: true,
+                    attributes: ['usuario_id', 'usuario_nome']
+                }
+            ]
+        });
 
         if (!orgao) {
             return { status: 404, message: 'Órgão não encontrado' };

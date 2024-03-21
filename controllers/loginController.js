@@ -13,7 +13,7 @@ async function login(email, senha) {
 
             const token = jwt.sign(payload, process.env.MASTER_KEY, { expiresIn: process.env.TOKEN_TIME });
 
-            return { status: 200, message: 'Login feito com sucesso', usuario: process.env.MASTER_USER, id: 0, token: token };
+            return { status: 200, message: 'Login feito com sucesso', usuario: process.env.MASTER_USER, id: 0, nivel:1, token: token };
         }
 
         const usuario = await usuariosModel.Usuario.findOne({ where: { usuario_email: email } });
@@ -34,7 +34,7 @@ async function login(email, senha) {
 
         const token = jwt.sign(payload, process.env.MASTER_KEY, { expiresIn: '1h' });
 
-        return { status: 200, message: 'Login feito com sucesso', usuario:  usuario.usuario_nome, id:  usuario.usuario_id, token: token };
+        return { status: 200, message: 'Login feito com sucesso', usuario:  usuario.usuario_nome, id:  usuario.usuario_id, nivel: usuario.usuario_nivel, token: token };
     } catch (error) {
         return { status: 500, message: 'Erro interno do servidor', error: error };
     }

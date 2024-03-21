@@ -43,8 +43,6 @@ router.put('/api/usuarios/:id', async (req, res) => {
 });
 
 router.get('/api/usuarios-niveis/', async (req, res) => {
-    let id = parseInt(req.params.id);
-
     const resp = await usuariosController.getLevelUsers();
     res.status(resp.status).json(resp);
 });
